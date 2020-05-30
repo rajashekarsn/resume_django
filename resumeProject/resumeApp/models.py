@@ -16,12 +16,23 @@ class AboutInfo(models.Model):
 
 
 class Experience(models.Model):
-    role = models.CharField(max_length=30)
     company = models.CharField(max_length=30)
+    role = models.CharField(max_length=30)
     location = models.CharField(max_length=30)
     role_description = models.TextField(max_length=1000)
     from_date = models.DateField()
     to_date = models.DateField()
+
+    def __str__(self):
+        return self.company
+
+
+class RoleBullets(models.Model):
+    role_bullets = models.TextField(max_length=1000)
+    company = models.ForeignKey(Experience, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.role_bullets
 
 
 class Education(models.Model):
