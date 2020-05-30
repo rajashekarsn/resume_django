@@ -6,10 +6,12 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <meta name="description" content="Resume app built on Python- Django framework using Free Bootstrap theme">
   <meta name="author" content="">
 
-  <title>Resume - Start Bootstrap Theme</title>
+  {% for item in about_info %}
+  <title>Resume - {{ item.about_first_name }}</title>
+  {% endfor %}
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet %}">
@@ -28,7 +30,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
-      <span class="d-block d-lg-none">Clarence Taylor</span>
+      <span class="d-block d-lg-none">Rajashekar S N</span>
       <span class="d-none d-lg-block">
         <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="static/img/profile.jpg" alt="">
       </span>
@@ -88,11 +90,23 @@
             <h3 class="mb-0">{{ item.role }}</h3>
             <div class="subheading mb-3">{{ item.company }}</div>
             <p>{{ item.role_description }}</p>
+              <ul class="fa-ul mb-0">
+                {% for bullet in bullets %}
+                {% if item.id == bullet.company_id %}
+                  <li>
+                    <i class="fa-li fa fa-check"></i>
+                    {{ bullet.role_bullets }}
+                  </li>
+                  <br/>
+                {% endif %}
+                {% endfor %}
+              </ul>
           </div>
           <div class="resume-date text-md-right">
             <span class="text-primary">{{ item.from_date }}- {{ item.to_date }}</span>
           </div>
         </div>
+
         {% endfor %}
 
       </div>
@@ -206,7 +220,7 @@
         </ul>
       </div>
     </section>
-
+    <p style="text-align:center;">&copy; 2020 rajashekar.pythonanywhere.com<p>
   </div>
 
   <!-- Bootstrap core JavaScript -->

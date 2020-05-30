@@ -20,12 +20,44 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =
+SECRET_KEY = 'izc7!_hck32r#*9b@1t2gq_1sv1$x40s)i3&&vsomz38o^3m*('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 1120,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    # 'theme': 'advanced',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    }
+
+
+
 
 
 # Application definition
@@ -37,7 +69,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'resumeApp'
+    'resumeApp',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +138,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+LANGUAGES = (
+    ('en', 'English'),   # You need to include your LANGUAGE_CODE language
+    ('fa', 'Farsi'),
+    ('de', 'German'),
+)
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -117,8 +154,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATICFILES_DIRS = [
+    os.path.join(os.path.dirname(__file__), "static")
+]
 STATIC_URL = '/static/'
 #media files - files to be added
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+
+TINYMCE_JS_URL = os.path.join(MEDIA_URL, "/media/tiny_mce.js")
+TINYMCE_JS_ROOT = os.path.join(MEDIA_ROOT, "/media/tiny_mce")
